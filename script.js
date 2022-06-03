@@ -4,14 +4,27 @@ var weatherEl = document.querySelector('#weather');
 var weatherContainerEl = document.querySelector('#weather-container');
 var forecaseContainerEl = document.querySelector('#forecast-container');
 var citySearchEl = document.querySelector('#city-searches');
+var previousEl = document.querySelector('#button-city')
 
-var formSubmitHandler = function (event) {
+
+function init(){
+    fetch('http://api.openweathermap.org/geo/1.0/direct?q=Wichita&limit=1&appid=afbc3e766ad7b125ff6728193711f7c7')
+    .then(function (response) {
+        return response.json();
+    })
+    .then(function(data){
+        console.log(data[0].lat, data[0].lon);
+        showWeather(data[0].lat, data[0].lon);
+    })
+}
+
+var submitHandler = function (event) {
     event.preventDefault();
 
     var cityName = cityNameEl.value.trim();
 
     if (cityName) {
-        getWeather(cityName);
+        showWeather(cityName);
 
         weatherContainerEl.textContent = '';
         cityNameEl.value = '';
@@ -20,27 +33,39 @@ var formSubmitHandler = function (event) {
     }
 }
 
-var getWeatherOfCity = function (city) {
-    var apiCity = 'http://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=1&appid=afbc3e766ad7b125ff6728193711f7c7'
-    fetch(apiCity)
-        .then(function (response) {
-            console.log(response);
-            if (response.ok) {
-                return response.json();
-            } else {
-                throw new Error(response.statusText)
-            }
-        })
-        .then(function (data) {
-            storeCity(city);
-            getWeather(data[0].lat, data[0].lon);
-        })
-        .catch(function(error) {
-            alert(error);
-        })
-}
+var buttonHandler = function (event) {
+    var city = event.target.getAttribute('data-city');
 
-function getWeather(lat, lon) {
+    if (city) {
+        getWeatherOfCity(city);
+        weatherContainerEl.textContent = '';
+    }
+};
+
+
+// var getWeatherOfCity = function (city) {
+//     var apiCity = 'http://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=1&appid=afbc3e766ad7b125ff6728193711f7c7'
+//     fetch(apiCity)
+//         .then(function (response) {
+//             console.log(response);
+//             if (response.ok) {
+//                 return response.json();
+//             } else {
+//                 throw new Error(response.statusText)
+//             }
+//         })
+//         .then(function (data) {
+//             showWeather(data[0].lat, data[0].lon);
+//             storeCity(city);
+//         })
+//         .catch(function (error) {
+//             alert(error);
+//         })
+// }
+
+
+
+function showWeather(lat, lon) {
     fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=afbc3e766ad7b125ff6728193711f7c7&units=imperial`)
         .then(function (response) {
             return response.json();
@@ -67,7 +92,8 @@ function getWeather(lat, lon) {
                 console.log(day);
             }
         })
-    }
+}
+
 var storeCity = function (city) {
     var cities = JSON.parse(localStorage.get('cities')) || [];
     if (!cities.includes(city)) {
@@ -89,7 +115,8 @@ var displayPreviousCitiesButtons = function () {
     }
 }
 
-
-
-cityFormEl.addEventListener('submit', formSubmitHandler);
+cityFormEl.addEventListener('submit', submitHandler);
+previousEl.addEventListener('click', buttonHandler);
 displayPreviousCitiesButtons;
+
+init();
