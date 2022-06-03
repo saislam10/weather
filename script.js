@@ -39,7 +39,7 @@ function getCity(e) {
 }
 
 var getWeatherOfCity = function (value) {
-    fetch('http://api.openweathermap.org/geo/1.0/direct?q=' + value + '&limit=1&appid=afbc3e766ad7b125ff6728193711f7c7')
+    fetch('https://api.openweathermap.org/geo/1.0/direct?q=' + value + '&limit=1&appid=afbc3e766ad7b125ff6728193711f7c7')
         .then(function (response) {
             return response.json();
         })
