@@ -7,7 +7,6 @@ var citySearchEl = document.querySelector('#city-searches');
 var previousEl = document.querySelector('#button-city');
 var searchCity = document.querySelector('#search-city');
 
-
 var submitHandler = function (event) {
     event.preventDefault();
 
@@ -32,9 +31,8 @@ var buttonHandler = function (event) {
     }
 };
 
-
-function getCity(e) {
-    e.preventDefault();
+function getCity(event) {
+    event.preventDefault();
     getWeatherOfCity(cityNameEl.value);
 }
 
@@ -48,7 +46,6 @@ var getWeatherOfCity = function (value) {
             var lon = data[0].lon;
             showWeather(lat, lon);
             storeCity(value);
-
         })
 }
 
@@ -85,21 +82,19 @@ function showWeather(lat, lon) {
                 var uvF = day.uvi;
                 var humF = day.humidity;
 
-
-
                 var tempElF = document.createElement('p');
                 var windElF = document.createElement('p');
                 var uvElF = document.createElement('p');
                 var humElF = document.createElement('p');
-
+                var divContainer = document.createElement('div');
 
                 tempElF.textContent = "Temperature: " + tempF;
                 windElF.textContent = "Wind Speed: " + windF;
                 uvElF.textContent = "UV Index: " + uvF;
                 humElF.textContent = "Humidity: " + humF;
 
-
-                forecastContainerEl.append(tempElF, windElF, uvElF, humElF);
+                divContainer.append(tempElF, windElF, uvElF, humElF);
+                forecastContainerEl.append(divContainer);
 
             }
         })
