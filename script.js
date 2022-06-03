@@ -53,13 +53,15 @@ function showWeather(lat, lon) {
 
             for (var i = 0; i < 5; i++) {
                 var day = data.daily[i];
-                var tempF = day.temp;
+                var max = day.temp.max; 
+                var min = day.temp.min;
+                var average = Math.round((max + min) / 2);
+                var tempF = average;
                 var windF = day.wind_speed;
                 var uvF = day.uvi;
                 var humF = day.humidity;
 
-                console.log(tempF);
-
+    
                 var tempElF = document.createElement('p');
                 var windElF = document.createElement('p');
                 var uvElF = document.createElement('p');
