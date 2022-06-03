@@ -9,7 +9,7 @@ var searchCity = document.querySelector('#search-city');
 
 searchCity.addEventListener('click', getCity);
 
-function getCity(e){
+function getCity(e) {
     e.preventDefault();
     getWeatherOfCity(cityNameEl.value);
 }
@@ -25,7 +25,7 @@ var getWeatherOfCity = function (value) {
             var lat = data[0].lat;
             var lon = data[0].lon;
             showWeather(lat, lon);
-            
+
         })
 
 }
@@ -53,7 +53,24 @@ function showWeather(lat, lon) {
 
             for (var i = 0; i < 5; i++) {
                 var day = data.daily[i];
-                console.log(day);
+                var tempF = day.temp;
+                var windF = day.wind_speed;
+                var uvF = day.uvi;
+                var humF = day.humidity;
+
+                console.log(tempF);
+
+                var tempElF = document.createElement('p');
+                var windElF = document.createElement('p');
+                var uvElF = document.createElement('p');
+                var humElF = document.createElement('p');
+
+                tempElF.textContent = "Temperature: " + tempF;
+                windElF.textContent = "Wind Speed: " + windF;
+                uvElF.textContent = "UV Index: " + uvF;
+                humElF.textContent = "Humidity: " + humF;
+
+                document.body.append(tempElF, windElF, uvElF, humElF);
             }
         })
 }
