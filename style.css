@@ -1,9 +1,43 @@
+:root{
+
+}
+
+*{
+    box-sizing: border-box;
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: lightcyan ;
 }
 
 .title {
-    background-color: aquamarine;
+    background-color: rgb(67, 111, 179);
     text-align: center;
-    
+}
+
+.card1{
+    display: block;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700;
+  margin: 0;
+  color: black;
+  line-height: 1.25;
+}
+
+main {
+    width: 20px auto;
+}
+
+.btn {
+    color: darkblue;
+    background-color: bisque;
+    display: block;
 }

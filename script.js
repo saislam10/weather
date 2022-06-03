@@ -77,7 +77,7 @@ function showWeather(lat, lon) {
 
             for (var i = 0; i < 5; i++) {
                 var day = data.daily[i];
-                var max = day.temp.max; 
+                var max = day.temp.max;
                 var min = day.temp.min;
                 var average = Math.round((max + min) / 2);
                 var tempF = average;
@@ -85,7 +85,7 @@ function showWeather(lat, lon) {
                 var uvF = day.uvi;
                 var humF = day.humidity;
 
-                
+
 
                 var tempElF = document.createElement('p');
                 var windElF = document.createElement('p');
@@ -100,7 +100,7 @@ function showWeather(lat, lon) {
 
 
                 forecastContainerEl.append(tempElF, windElF, uvElF, humElF);
-                
+
             }
         })
 }
