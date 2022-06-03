@@ -11,7 +11,7 @@ searchCity.addEventListener('click', getCity);
 
 function getCity(e){
     e.preventDefault();
-    showWeather(cityNameEl.value);
+    getWeatherOfCity(cityNameEl.value);
 }
 
 var getWeatherOfCity = function (value) {
@@ -22,10 +22,10 @@ var getWeatherOfCity = function (value) {
         .then(function (data) {
             console.log(data);
 
-            var lat = data.coord.lat;
-            var lon = data.coord.lon;
+            var lat = data[0].lat;
+            var lon = data[0].lon;
             showWeather(lat, lon);
-            storeCity(city);
+            
         })
 
 }
