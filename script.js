@@ -60,17 +60,23 @@ function showWeather(lat, lon) {
             var wind = data.current.wind_speed;
             var uv = data.current.uvi;
             var hum = data.current.humidity;
+            var containerEl = document.createElement('div');
             var tempEl = document.createElement('p');
             var windEl = document.createElement('p');
             var uvEl = document.createElement('p');
             var humEl = document.createElement('p');
+    
 
             tempEl.textContent = "Temperature: " + temp;
             windEl.textContent = "Wind Speed: " + wind;
             uvEl.textContent = "UV Index: " + uv;
             humEl.textContent = "Humidity: " + hum;
+            // var today = moment();
+            // $("#weather-container").text(today.format("dddd, MMMM Do"));
 
-            weatherContainerEl.append(tempEl, windEl, uvEl, humEl);
+
+            containerEl.append(tempEl, windEl, uvEl, humEl);
+            weatherContainerEl.append(containerEl);
 
             for (var i = 0; i < 5; i++) {
                 var day = data.daily[i];
@@ -87,6 +93,7 @@ function showWeather(lat, lon) {
                 var uvElF = document.createElement('p');
                 var humElF = document.createElement('p');
                 var divContainer = document.createElement('div');
+                divContainer.className = "card";
 
                 tempElF.textContent = "Temperature: " + tempF;
                 windElF.textContent = "Wind Speed: " + windF;
