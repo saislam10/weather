@@ -2,12 +2,11 @@ var cityFormEl = document.querySelector('#city-form');
 var cityNameEl = document.querySelector('#city');
 var weatherEl = document.querySelector('#weather');
 var weatherContainerEl = document.querySelector('#weather-container');
-var forecaseContainerEl = document.querySelector('#forecast-container');
+var forecastContainerEl = document.querySelector('#forecast-container');
 var citySearchEl = document.querySelector('#city-searches');
 var previousEl = document.querySelector('#button-city');
 var searchCity = document.querySelector('#search-city');
 
-searchCity.addEventListener('click', getCity);
 
 var submitHandler = function (event) {
     event.preventDefault();
@@ -15,7 +14,7 @@ var submitHandler = function (event) {
     var cityName = cityNameEl.value.trim();
 
     if (cityName) {
-        showWeather(cityName);
+        getWeatherOfCity(cityName);
 
         weatherContainerEl.textContent = '';
         cityNameEl.value = '';
@@ -48,7 +47,7 @@ var getWeatherOfCity = function (value) {
             var lat = data[0].lat;
             var lon = data[0].lon;
             showWeather(lat, lon);
-            storeCity(city);
+            storeCity(value);
 
         })
 }
@@ -59,6 +58,7 @@ function showWeather(lat, lon) {
             return response.json();
         })
         .then(function (data) {
+            forecastContainerEl.innerHTML = '';
             var temp = data.current.temp;
             var wind = data.current.wind_speed;
             var uv = data.current.uvi;
@@ -73,7 +73,7 @@ function showWeather(lat, lon) {
             uvEl.textContent = "UV Index: " + uv;
             humEl.textContent = "Humidity: " + hum;
 
-            document.body.append(tempEl, windEl, uvEl, humEl);
+            weatherContainerEl.append(tempEl, windEl, uvEl, humEl);
 
             for (var i = 0; i < 5; i++) {
                 var day = data.daily[i];
@@ -85,18 +85,22 @@ function showWeather(lat, lon) {
                 var uvF = day.uvi;
                 var humF = day.humidity;
 
-    
+                
+
                 var tempElF = document.createElement('p');
                 var windElF = document.createElement('p');
                 var uvElF = document.createElement('p');
                 var humElF = document.createElement('p');
+
 
                 tempElF.textContent = "Temperature: " + tempF;
                 windElF.textContent = "Wind Speed: " + windF;
                 uvElF.textContent = "UV Index: " + uvF;
                 humElF.textContent = "Humidity: " + humF;
 
-                document.body.append(tempElF, windElF, uvElF, humElF);
+
+                forecastContainerEl.append(tempElF, windElF, uvElF, humElF);
+                
             }
         })
 }
@@ -110,9 +114,9 @@ var storeCity = function (city) {
     }
 }
 
-var displayPreviousCitiesButtons = function (city) {
+var displayPreviousCitiesButtons = function () {
     var cities = JSON.parse(localStorage.getItem('cities')) || [];
-    citySearchEl.innerHTML = '';
+    citySearchEl.innerHTML = null;
     for (var city of cities) {
         var cityBtn = document.createElement('button');
         cityBtn.dataset.city = city;
@@ -120,7 +124,6 @@ var displayPreviousCitiesButtons = function (city) {
         cityBtn.textContent = city;
         console.log(cityBtn);
         citySearchEl.append(cityBtn);
-
     }
 }
 
