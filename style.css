@@ -8,6 +8,27 @@
     box-sizing: border-box;
   }
 
+  .row1{
+  display: flex;
+  display: inline-flex;
+  flex-direction: column;
+}
+  .row2{
+  display: flex;
+  display: inline-flex;
+  flex-direction: column;
+}
+
+main {
+  display: flex;
+  flex-direction: row;
+}
+
+#forecast-container {
+  display: flex;
+  flex-direction: row;
+}
+
   .title{
       border-radius: 10px;
       border: solid;
@@ -32,10 +53,13 @@
     color: var(--dark);
   }
   
-  main {
+  #first{
+    display: block;
+  }
+  /* main {
     margin: 20px auto;
     width: 94%;
-  }
+  } */
   
   p {
     font-size: 1.2rem;
@@ -62,6 +86,9 @@
     border: 3px solid var(--dark);
     border-radius: 10px;
     font-size: large;
+    height: 100%;
+    margin: 10px;
+    padding: 15px;
   }
 
   .card3 {
@@ -82,7 +109,17 @@
 
 }
 
-.subtitle {
+  .card5{
+    height: 100%;
+    width: 50%;
+    margin: 10px;
+    padding: 15px;
+    border-radius: 10px;
+    border: solid;
+
+}
+
+  .subtitle {
     font-size: 50px;
     border-radius: 10px;
     border: solid;
@@ -102,7 +139,6 @@
     padding: 2.5%;
   }
   
-
   .form-input {
     width: 100%;
     padding: 3%;
@@ -135,40 +171,4 @@
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-  }
-  
-  .justify-space-between {
-    justify-content: space-between;
-  }
-  
-  .justify-space-around {
-    justify-content: space-around;
-  }
-  
-  .justify-flex-start {
-    justify-content: flex-start;
-  }
-  
-  .justify-flex-end {
-    justify-content: flex-end;
-  }
-  
-  .justify-center {
-    justify-content: center;
-  }
-  
-  .align-stretch {
-    align-items: stretch;
-  }
-  
-  .align-end {
-    align-items: flex-end;
-  }
-  
-  .align-center {
-    align-items: center;
-  }
-  
-  .col-auto {
-    flex-grow: 1;
   }

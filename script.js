@@ -9,7 +9,6 @@ var searchCity = document.querySelector('#search-city');
 
 var submitHandler = function (event) {
     event.preventDefault();
-
     var cityName = cityNameEl.value.trim();
 
     if (cityName) {
@@ -93,7 +92,7 @@ function showWeather(lat, lon) {
                 var uvElF = document.createElement('p');
                 var humElF = document.createElement('p');
                 var divContainer = document.createElement('div');
-                divContainer.className = "card";
+                divContainer.className = "card5";
 
                 tempElF.textContent = "Temperature: " + tempF;
                 windElF.textContent = "Wind Speed: " + windF;
