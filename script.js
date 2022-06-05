@@ -123,7 +123,6 @@ var displayPreviousCitiesButtons = function () {
         cityBtn.dataset.city = city;
         cityBtn.className = 'btn';
         cityBtn.textContent = city;
-        console.log(cityBtn);
         citySearchEl.append(cityBtn);
     }
 }
