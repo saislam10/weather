@@ -1,3 +1,4 @@
+
 var cityFormEl = document.querySelector('#city-form');
 var cityNameEl = document.querySelector('#city');
 var weatherEl = document.querySelector('#weather');
@@ -6,6 +7,9 @@ var forecastContainerEl = document.querySelector('#forecast-container');
 var citySearchEl = document.querySelector('#city-searches');
 var previousEl = document.querySelector('#button-city');
 var searchCity = document.querySelector('#search-city');
+dayjs.extend(window.dayjs_plugin_utc);
+dayjs.extend(window.dayjs_plugin_timezone);
+
 
 var submitHandler = function (event) {
     event.preventDefault();
@@ -48,7 +52,8 @@ var getWeatherOfCity = function (value) {
         })
 }
 
-function showWeather(lat, lon) {
+function showWeather(lat, lon, timezone) {
+    var date = dayjs().tz(timezone).format('M/D/YYYY');
     fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=afbc3e766ad7b125ff6728193711f7c7&units=imperial`)
         .then(function (response) {
             return response.json();
@@ -60,6 +65,7 @@ function showWeather(lat, lon) {
             var uv = data.current.uvi;
             var hum = data.current.humidity;
             var containerEl = document.createElement('div');
+            var h2El = document.createElement('h2');
             var tempEl = document.createElement('p');
             var windEl = document.createElement('p');
             var uvEl = document.createElement('p');
@@ -70,14 +76,17 @@ function showWeather(lat, lon) {
             windEl.textContent = "Wind Speed: " + wind;
             uvEl.textContent = "UV Index: " + uv;
             humEl.textContent = "Humidity: " + hum;
+
+            h2El.textContent = date
             // var today = moment();
             // $("#weather-container").text(today.format("dddd, MMMM Do"));
 
 
-            containerEl.append(tempEl, windEl, uvEl, humEl);
+            containerEl.append(h2El, tempEl, windEl, uvEl, humEl);
             weatherContainerEl.append(containerEl);
 
             for (var i = 0; i < 5; i++) {
+                var newDate = dayjs().tz(timezone).add([1+i], 'day').startOf('day').format('M/D/YYYY');
                 var day = data.daily[i];
                 var max = day.temp.max;
                 var min = day.temp.min;
@@ -92,14 +101,16 @@ function showWeather(lat, lon) {
                 var uvElF = document.createElement('p');
                 var humElF = document.createElement('p');
                 var divContainer = document.createElement('div');
+                var h2Ele = document.createElement('h2');
                 divContainer.className = "card5";
 
                 tempElF.textContent = "Temperature: " + tempF;
                 windElF.textContent = "Wind Speed: " + windF;
                 uvElF.textContent = "UV Index: " + uvF;
                 humElF.textContent = "Humidity: " + humF;
+                h2Ele.textContent = newDate;
 
-                divContainer.append(tempElF, windElF, uvElF, humElF);
+                divContainer.append(h2Ele, tempElF, windElF, uvElF, humElF);
                 forecastContainerEl.append(divContainer);
 
             }
